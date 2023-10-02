@@ -1,7 +1,8 @@
+import "./style.css";
 import React, { useState } from "react";
 
 const LoginForm: React.FC = () => {
-  const [email, setEmail] = useState("");
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
   const handleLogin = () => {
@@ -10,23 +11,25 @@ const LoginForm: React.FC = () => {
   };
 
   return (
-    <form>
-      <div>
-        <label>Email:</label>
+    <form id="post-form">
+      <div className="form-field">
+        <label>Username:</label>
         <input
-          type="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
+          type="username"
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
         />
       </div>
-      <div>
+      <div className="form-field">
         <label>Password:</label>
         <input
           type="password"
           value={password}
+          required
           onChange={(e) => setPassword(e.target.value)}
         />
       </div>
+
       <button type="button" onClick={handleLogin}>
         Login
       </button>
