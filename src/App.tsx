@@ -1,9 +1,9 @@
 import "./style.css";
 import React from "react";
-import LoginPage from "./pages/login/LoginPage";
+import AppRouter from "./infra/routes/AppRouter";
 
 function App() {
-  return <LoginPage />;
+  return <AppRouter />;
 }
 
 export default App;
