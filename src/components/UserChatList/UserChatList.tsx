@@ -5,21 +5,12 @@ import ChatController, {
 import "./style.css";
 import React, { useEffect, useState } from "react";
 
-const UserChatList: React.FC = () => {
-  const chatController = new ChatController();
-  const [chats, setChats] = useState<ListUserChatsDTO>([]);
-  const [loading, setLoading] = useState(true);
+export type UserChatListProps = {
+  chats: ListUserChatsDTO;
+  loading: boolean;
+};
 
-  const getUserChats = async (): Promise<void> => {
-    const userChats = await chatController.listUserChats();
-    setChats(userChats);
-    setLoading(false);
-  };
-
-  useEffect(() => {
-    getUserChats();
-  }, []);
-
+const UserChatList: React.FC<UserChatListProps> = ({ chats, loading }) => {
   if (loading) {
     return <h3>Loading...</h3>;
   }
