@@ -13,6 +13,11 @@ export type ListUserChatsDTO = {
   }[];
 }[];
 
+export type GetChatPartnersDTO = {
+  id: string;
+  username: string;
+}[];
+
 class ChatController {
   private http = new HttpService();
 
@@ -23,6 +28,25 @@ class ChatController {
       });
 
       return res?.data?.chats ?? [];
+    } catch (err) {
+      if (err instanceof AxiosError) {
+        const data = err.response?.data as { message: string };
+        if (data?.message === "Invalid credentials!") {
+          throw new Error("Invalid credentials!");
+        }
+      }
+
+      throw err;
+    }
+  }
+
+  async getChatPartners(): Promise<GetChatPartnersDTO> {
+    try {
+      const res = await this.http.getAuth<{ users: GetChatPartnersDTO }>({
+        path: "/get-users",
+      });
+
+      return res?.data?.users ?? [];
     } catch (err) {
       if (err instanceof AxiosError) {
         const data = err.response?.data as { message: string };
