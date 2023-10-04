@@ -24,13 +24,3 @@ form input {
   margin-bottom: 18px;
 }
 
-form button {
-  color: #fff;
-  border: none;
-  width: 100%;
-  cursor: pointer;
-  padding: 12px 24px;
-  margin-top: 12px;
-  border-radius: 4px;
-  background-color: #007bff;
-}
