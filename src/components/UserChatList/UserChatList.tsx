@@ -1,9 +1,7 @@
 import UserIcon from "../../assets/UserIcon";
-import ChatController, {
-  ListUserChatsDTO,
-} from "../../infra/controllers/ChatController";
+import { ListUserChatsDTO } from "../../infra/controllers/ChatController";
 import "./style.css";
-import React, { useEffect, useState } from "react";
+import React from "react";
 
 export type UserChatListProps = {
   chats: ListUserChatsDTO;
@@ -32,7 +30,11 @@ const UserChatList: React.FC<UserChatListProps> = ({ chats, loading }) => {
             <div key={index} className="chat-list-item">
               <div className="user-icon">
                 {partner.profileImage ? (
-                  <img src={partner.profileImage} alt="User"></img>
+                  <img
+                    className="user-image"
+                    src={partner.profileImage}
+                    alt="User"
+                  ></img>
                 ) : (
                   <UserIcon />
                 )}
