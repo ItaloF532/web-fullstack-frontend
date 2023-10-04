@@ -9,7 +9,7 @@
   display: flex;
   border: 1px solid #8f8f8f;
   align-items: stretch;
-  border-radius: 28px;
+  border-radius: 8px;
   flex-direction: column;
   justify-content: center;
 }
