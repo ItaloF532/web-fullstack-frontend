@@ -58,6 +58,26 @@ class ChatController {
       throw err;
     }
   }
+
+  async createChat(partnerId: string): Promise<void> {
+    try {
+      await this.http.posAutht({
+        path: "/create-chat",
+        body: {
+          partnerId,
+        },
+      });
+    } catch (err) {
+      if (err instanceof AxiosError) {
+        const data = err.response?.data as { message: string };
+        if (data?.message === "Invalid credentials!") {
+          throw new Error("Invalid credentials!");
+        }
+      }
+
+      throw err;
+    }
+  }
 }
 
 export default ChatController;
