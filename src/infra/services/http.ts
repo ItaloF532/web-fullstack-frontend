@@ -43,6 +43,22 @@ class HttpService {
 
     return res;
   }
+
+  async posAutht<T>({
+    path = "",
+    body,
+    params,
+  }: HttpParams): Promise<AxiosResponse<T>> {
+    const token = Cookies.get("token");
+    const res = await this.client.post<T>(path, body, {
+      params,
+      headers: {
+        authorization: `Bearer ${token}`,
+      },
+    });
+
+    return res;
+  }
 }
 
 export default HttpService;
