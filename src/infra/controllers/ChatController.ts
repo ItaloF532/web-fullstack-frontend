@@ -73,6 +73,10 @@ class ChatController {
         if (data?.message === "Invalid credentials!") {
           throw new Error("Invalid credentials!");
         }
+
+        if (data?.message === "There is already a chat with this user!") {
+          throw new Error("There is already a chat with this user!");
+        }
       }
 
       throw err;

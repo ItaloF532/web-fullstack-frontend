@@ -1,11 +1,15 @@
 import "./style.css";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import UserChatList from "../../components/UserChatList/UserChatList";
 import CreateChatModal from "../../components/CreateChatModal/CreateChatModal";
-import ChatController from "../../infra/controllers/ChatController";
+import ChatController, {
+  ListUserChatsDTO,
+} from "../../infra/controllers/ChatController";
 
 const ChatListPage: React.FC = () => {
   const chatController = new ChatController();
+  const [chats, setChats] = useState<ListUserChatsDTO>([]);
+  const [loading, setLoading] = useState(false);
   const [showModal, setShowModal] = useState(false);
 
   const openCreateModal = () => {
@@ -16,7 +20,42 @@ const ChatListPage: React.FC = () => {
     setShowModal(false);
   };
 
-  const handleChatCreation = async (partnerId: string) => {};
+  const getUserChats = async (): Promise<void> => {
+    try {
+      setLoading(true);
+      const userChats = await chatController.listUserChats();
+      setChats(userChats);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleChatCreation = async (partnerId: string) => {
+    try {
+      setLoading(true);
+      await getUserChats();
+      await chatController.createChat(partnerId);
+      const userChats = await chatController.listUserChats();
+      setChats(userChats);
+    } catch (error) {
+      if (error instanceof Error) {
+        if (
+          error.toString() === "Error: There is already a chat with this user!"
+        ) {
+          alert("There is already a chat with this user!");
+          return;
+        }
+      }
+
+      throw error;
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    getUserChats();
+  }, []);
 
   return (
     <>
@@ -24,8 +63,8 @@ const ChatListPage: React.FC = () => {
         <div className="modal-container">
           <CreateChatModal
             show={showModal}
+            onCreateChat={handleChatCreation}
             chatController={chatController}
-            onCreateChat={() => {}}
             closeCallback={onCloseCreateModal}
           />
         </div>
@@ -35,7 +74,7 @@ const ChatListPage: React.FC = () => {
         <div className="chat-list">
           <h2>User Chat List</h2>
           <button onClick={openCreateModal}>Create new chat</button>
-          <UserChatList />
+          <UserChatList chats={chats} loading={loading} />
         </div>
       </div>
     </>
