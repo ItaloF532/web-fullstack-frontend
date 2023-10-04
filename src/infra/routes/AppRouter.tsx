@@ -2,7 +2,7 @@ import React from "react";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import LoginPage from "../../pages/login/LoginPage";
 import PrivateRoute from "./PrivateRoute";
-import ChatPage from "../../pages/chat/ChatPage";
+import ChatListPage from "../../pages/chat-list/ChatList";
 
 const AppRouter: React.FC = () => {
   return (
@@ -10,10 +10,10 @@ const AppRouter: React.FC = () => {
       <Routes>
         <Route path="/" element={<LoginPage />} />
         <Route
-          path="/chat"
+          path="/chat-list"
           element={
             <PrivateRoute>
-              <ChatPage />
+              <ChatListPage />
             </PrivateRoute>
           }
         />

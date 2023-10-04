@@ -7,9 +7,9 @@ const UserIcon: React.FC = () => (
       fill="none"
       r="96"
       stroke="#000"
-      stroke-linecap="round"
-      stroke-linejoin="round"
-      stroke-width="12"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth="12"
     />
     <circle
       cx="128"
@@ -17,17 +17,17 @@ const UserIcon: React.FC = () => (
       fill="none"
       r="40"
       stroke="#000"
-      stroke-linecap="round"
-      stroke-linejoin="round"
-      stroke-width="12"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth="12"
     />
     <path
       d="M63.8,199.4a72,72,0,0,1,128.4,0"
       fill="none"
       stroke="#000"
-      stroke-linecap="round"
-      stroke-linejoin="round"
-      stroke-width="12"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth="12"
     />
   </svg>
 );
