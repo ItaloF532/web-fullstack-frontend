@@ -1,0 +1,21 @@
+h2 {
+  color: #303030;
+}
+
+.chat-list-container {
+  height: 100vh;
+  display: flex;
+  align-self: center;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.chat-list {
+  width: 50vw;
+  border: 1px solid #8f8f8f;
+  padding: 40px;
+  box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
+  text-align: center;  
+  border-radius: 16px;
+}

@@ -27,7 +27,7 @@ const LoginForm: React.FC = () => {
 
   return (
     <>
-      {isLoggedIn && <Navigate to="/chat" replace={true} />}
+      {isLoggedIn && <Navigate to="/chat-list" replace={true} />}
       <form id="post-form">
         <div className="form-field">
           <label>Username:</label>
