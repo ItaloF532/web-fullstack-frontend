@@ -35,6 +35,7 @@ const ChatListPage: React.FC = () => {
       setLoading(true);
       await getUserChats();
       await chatController.createChat(partnerId);
+      onCloseCreateModal();
       const userChats = await chatController.listUserChats();
       setChats(userChats);
     } catch (error) {
@@ -73,7 +74,9 @@ const ChatListPage: React.FC = () => {
       <div className="chat-list-container">
         <div className="chat-list">
           <h2>User Chat List</h2>
-          <button onClick={openCreateModal}>Create new chat</button>
+          <button className="create-chat-button" onClick={openCreateModal}>
+            Create new chat
+          </button>
           <UserChatList chats={chats} loading={loading} />
         </div>
       </div>
