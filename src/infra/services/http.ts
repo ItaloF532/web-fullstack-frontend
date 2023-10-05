@@ -1,5 +1,6 @@
 import axios, { AxiosInstance, AxiosResponse } from "axios";
 import Cookies from "js-cookie";
+import { HTTP_API_URL } from "../../constants";
 
 export type HttpParams = {
   path?: string;
@@ -8,12 +9,11 @@ export type HttpParams = {
 };
 
 class HttpService {
-  private uri = "https://localhost:8080";
   private client: AxiosInstance;
 
   constructor() {
     this.client = axios.create({
-      baseURL: this.uri,
+      baseURL: HTTP_API_URL,
     });
   }
 
