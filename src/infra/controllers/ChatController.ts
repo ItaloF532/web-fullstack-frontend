@@ -31,8 +31,11 @@ class ChatController {
     } catch (err) {
       if (err instanceof AxiosError) {
         const data = err.response?.data as { message: string };
-        if (data?.message === "Invalid credentials!") {
-          throw new Error("Invalid credentials!");
+        if (data?.message === "Invalid token!") {
+          throw new Error("Invalid token!");
+        }
+        if (data?.message === "Missing authentication token!") {
+          throw new Error("Missing authentication token!");
         }
       }
 
@@ -50,8 +53,11 @@ class ChatController {
     } catch (err) {
       if (err instanceof AxiosError) {
         const data = err.response?.data as { message: string };
-        if (data?.message === "Invalid credentials!") {
-          throw new Error("Invalid credentials!");
+        if (data?.message === "Invalid token!") {
+          throw new Error("Invalid token!");
+        }
+        if (data?.message === "Missing authentication token!") {
+          throw new Error("Missing authentication token!");
         }
       }
 

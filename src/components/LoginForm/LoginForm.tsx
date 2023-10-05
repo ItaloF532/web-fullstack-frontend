@@ -2,17 +2,18 @@ import { Navigate } from "react-router-dom";
 import AuthController from "../../infra/controllers/AuthController";
 import "./style.css";
 import React, { useState } from "react";
+import { useAuth } from "../../context/auth";
 
 const LoginForm: React.FC = () => {
   const authController = new AuthController();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const { signed, setSigned } = useAuth();
 
   const handleLogin = async () => {
     try {
       await authController.signIn(username, password);
-      setIsLoggedIn(true);
+      setSigned(true);
     } catch (error) {
       if (error instanceof Error) {
         if (error.toString() === "Error: Invalid credentials!") {
@@ -27,7 +28,7 @@ const LoginForm: React.FC = () => {
 
   return (
     <>
-      {isLoggedIn && <Navigate to="/chat-list" replace={true} />}
+      {signed && <Navigate to="/chat-list" replace={true} />}
       <form id="post-form">
         <div className="form-field">
           <label>Username:</label>

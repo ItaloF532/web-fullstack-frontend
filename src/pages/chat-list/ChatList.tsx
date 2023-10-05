@@ -5,9 +5,11 @@ import CreateChatModal from "../../components/CreateChatModal/CreateChatModal";
 import ChatController, {
   ListUserChatsDTO,
 } from "../../infra/controllers/ChatController";
+import { useAuth } from "../../context/auth";
 
 const ChatListPage: React.FC = () => {
   const chatController = new ChatController();
+  const { logOutExpired } = useAuth();
   const [chats, setChats] = useState<ListUserChatsDTO>([]);
   const [loading, setLoading] = useState(false);
   const [showModal, setShowModal] = useState(false);
@@ -25,6 +27,20 @@ const ChatListPage: React.FC = () => {
       setLoading(true);
       const userChats = await chatController.listUserChats();
       setChats(userChats);
+    } catch (error) {
+      if (error instanceof Error) {
+        if (error.toString() === "Error: Invalid token!") {
+          logOutExpired();
+          return;
+        }
+
+        if (error.toString() === "Error: Missing authentication token!") {
+          logOutExpired();
+          return;
+        }
+      }
+
+      throw error;
     } finally {
       setLoading(false);
     }
@@ -44,6 +60,16 @@ const ChatListPage: React.FC = () => {
           error.toString() === "Error: There is already a chat with this user!"
         ) {
           alert("There is already a chat with this user!");
+          return;
+        }
+
+        if (error.toString() === "Error: Invalid token!") {
+          logOutExpired();
+          return;
+        }
+
+        if (error.toString() === "Error: Missing authentication token!") {
+          logOutExpired();
           return;
         }
       }
