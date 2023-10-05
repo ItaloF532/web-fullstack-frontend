@@ -1106,7 +1106,7 @@
   "resolved" "https://registry.npmjs.org/@babel/regjsgen/-/regjsgen-0.8.0.tgz"
   "version" "0.8.0"
 
-"@babel/runtime@^7.11.2", "@babel/runtime@^7.12.5", "@babel/runtime@^7.16.3", "@babel/runtime@^7.20.7", "@babel/runtime@^7.23.1", "@babel/runtime@^7.8.4", "@babel/runtime@^7.9.2":
+"@babel/runtime@^7.11.2", "@babel/runtime@^7.12.5", "@babel/runtime@^7.16.3", "@babel/runtime@^7.20.7", "@babel/runtime@^7.8.4", "@babel/runtime@^7.9.2":
   "integrity" "sha512-hC2v6p8ZSI/W0HUzh3V8C5g+NwSKzKPtJwSpTjwl0o297GP9+ZLQSkdvHz46CM3LqyoXxq+5G9komY+eSqSO0g=="
   "resolved" "https://registry.npmjs.org/@babel/runtime/-/runtime-7.23.1.tgz"
   "version" "7.23.1"
@@ -1807,15 +1807,6 @@
     "@svgr/plugin-svgo" "^5.5.0"
     "loader-utils" "^2.0.0"
 
-"@tanem/svg-injector@^10.1.63":
-  "integrity" "sha512-mp25v9puSl8h1JpvUqsh2N9SlnuWPC1bjcqE76jsBF5wMXUfTIopPC9QdLOxVfHissZg074tFf1CyBKOicgG3Q=="
-  "resolved" "https://registry.npmjs.org/@tanem/svg-injector/-/svg-injector-10.1.65.tgz"
-  "version" "10.1.65"
-  dependencies:
-    "@babel/runtime" "^7.23.1"
-    "content-type" "^1.0.5"
-    "tslib" "^2.6.2"
-
 "@testing-library/dom@^8.5.0":
   "integrity" "sha512-/DiOQ5xBxgdYRC8LNk7U+RWat0S3qRLeIw3ZIkMQ9kkVlRmwD/Eg8k8CqIpD6GW7u20JIUOfMKbxtiLutpjQ4g=="
   "resolved" "https://registry.npmjs.org/@testing-library/dom/-/dom-8.20.1.tgz"
@@ -2085,7 +2076,7 @@
   "resolved" "https://registry.npmjs.org/@types/prettier/-/prettier-2.7.3.tgz"
   "version" "2.7.3"
 
-"@types/prop-types@*", "@types/prop-types@^15.7.7":
+"@types/prop-types@*":
   "integrity" "sha512-kMpQpfZKSCBqltAJwskgePRaYRFukDkm1oItcAbC3gNELR20XIBcN9VRgg4+m8DKsTfkWeA4m4Imp4DDuWy7FQ=="
   "resolved" "https://registry.npmjs.org/@types/prop-types/-/prop-types-15.7.8.tgz"
   "version" "15.7.8"
@@ -3398,7 +3389,7 @@
   dependencies:
     "safe-buffer" "5.2.1"
 
-"content-type@^1.0.5", "content-type@~1.0.4":
+"content-type@~1.0.4":
   "integrity" "sha512-nTjqfcBFEipKdXCv4YDQWCfmcLZKm81ldF0pAopTvyrFGVbcR6P/VAAd5G7N+0tTr8QqiU0tFadD6FK4NtJwOA=="
   "resolved" "https://registry.npmjs.org/content-type/-/content-type-1.0.5.tgz"
   "version" "1.0.5"
@@ -7807,7 +7798,7 @@
     "strip-ansi" "^6.0.1"
     "text-table" "^0.2.0"
 
-"react-dom@^16.0.0 || ^17.0.0 || ^18.0.0", "react-dom@^18.0.0", "react-dom@^18.2.0", "react-dom@>=16.8":
+"react-dom@^18.0.0", "react-dom@^18.2.0", "react-dom@>=16.8":
   "integrity" "sha512-6IMTriUmvsjHUjNtEDudZfuDQUoWXVxKHhlEGSk81n4YFS+r/Kl99wXiwlVXtPBtJenozv2P+hxDsw9eA7Xo6g=="
   "resolved" "https://registry.npmjs.org/react-dom/-/react-dom-18.2.0.tgz"
   "version" "18.2.0"
@@ -7910,17 +7901,7 @@
   optionalDependencies:
     "fsevents" "^2.3.2"
 
-"react-svg@^16.1.27":
-  "integrity" "sha512-LCFyeEmvB4VNYYU4Bn9uCKmZK9/TE6FsSPCsbovBE4a/6kW80zAw2KpXUAyyJuwJJg0TbIeulyOIyseFokkVIQ=="
-  "resolved" "https://registry.npmjs.org/react-svg/-/react-svg-16.1.27.tgz"
-  "version" "16.1.27"
-  dependencies:
-    "@babel/runtime" "^7.23.1"
-    "@tanem/svg-injector" "^10.1.63"
-    "@types/prop-types" "^15.7.7"
-    "prop-types" "^15.8.1"
-
-"react@^16.0.0 || ^17.0.0 || ^18.0.0", "react@^18.0.0", "react@^18.2.0", "react@>= 16", "react@>=16.8":
+"react@^18.0.0", "react@^18.2.0", "react@>= 16", "react@>=16.8":
   "integrity" "sha512-/3IjMdb2L9QbBdWiW5e3P2/npwMBaU9mHCSCUzNln0ZCYbcfTsGbTJrU/kGemdH2IWmB2ioZ+zkxtmq6g09fGQ=="
   "resolved" "https://registry.npmjs.org/react/-/react-18.2.0.tgz"
   "version" "18.2.0"
@@ -9021,7 +9002,7 @@
   "resolved" "https://registry.npmjs.org/tslib/-/tslib-1.14.1.tgz"
   "version" "1.14.1"
 
-"tslib@^2.0.3", "tslib@^2.6.2":
+"tslib@^2.0.3":
   "integrity" "sha512-AEYxH93jGFPn/a2iVAwW87VuUIkR1FVUKB77NwMF7nBTDkDrrT/Hpt/IrCJ0QXhW27jTBDcf5ZY7w6RiqTMw2Q=="
   "resolved" "https://registry.npmjs.org/tslib/-/tslib-2.6.2.tgz"
   "version" "2.6.2"
@@ -9741,7 +9722,7 @@
   "resolved" "https://registry.npmjs.org/ws/-/ws-7.5.9.tgz"
   "version" "7.5.9"
 
-"ws@^8.13.0":
+"ws@^8.13.0", "ws@^8.14.2":
   "integrity" "sha512-wEBG1ftX4jcglPxgFCMJmZ2PLtSbJ2Peg6TmpJFTbe9GZYOQCDPdMYu/Tm0/bGZkw8paZnJY45J4K2PZrLYq8g=="
   "resolved" "https://registry.npmjs.org/ws/-/ws-8.14.2.tgz"
   "version" "8.14.2"
