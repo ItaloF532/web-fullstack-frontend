@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import UserIcon from "../../assets/UserIcon";
 import { ListUserChatsDTO } from "../../infra/controllers/ChatController";
 import "./style.css";
@@ -27,7 +28,11 @@ const UserChatList: React.FC<UserChatListProps> = ({ chats, loading }) => {
           if (!partner) return <></>;
 
           return (
-            <div key={index} className="chat-list-item">
+            <Link
+              key={index}
+              to={`/chat/${chat.id}`}
+              className="chat-list-item"
+            >
               <div className="user-icon">
                 {partner.profileImage ? (
                   <img
@@ -40,7 +45,7 @@ const UserChatList: React.FC<UserChatListProps> = ({ chats, loading }) => {
                 )}
               </div>
               <p> {partner?.username} </p>
-            </div>
+            </Link>
           );
         })
       )}
