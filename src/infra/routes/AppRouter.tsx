@@ -3,6 +3,7 @@ import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import LoginPage from "../../pages/login/LoginPage";
 import PrivateRoute from "./PrivateRoute";
 import ChatListPage from "../../pages/chat-list/ChatList";
+import ChatMessagePage from "../../pages/chat-message/ChatMessage";
 
 const AppRouter: React.FC = () => {
   return (
@@ -14,6 +15,14 @@ const AppRouter: React.FC = () => {
           element={
             <PrivateRoute>
               <ChatListPage />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/chat/:chatId"
+          element={
+            <PrivateRoute>
+              <ChatMessagePage />
             </PrivateRoute>
           }
         />
