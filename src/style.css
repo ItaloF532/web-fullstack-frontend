@@ -27,5 +27,13 @@ button {
 .log-out-button {
   top: 16px;
   right: 16px;
+  cursor: pointer;
+  position: absolute;
+}
+
+.back-button {
+  top: 16px;
+  left: 16px;
+  cursor: pointer;
   position: absolute;
 }
