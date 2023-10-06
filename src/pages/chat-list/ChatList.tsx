@@ -6,6 +6,8 @@ import ChatController, {
   ListUserChatsDTO,
 } from "../../infra/controllers/ChatController";
 import { useAuth } from "../../context/auth";
+import LogOutIcon from "../../assets/LogOutIcon";
+import LogOutButton from "../../components/LogOutButton/LogOutButton";
 
 const ChatListPage: React.FC = () => {
   const chatController = new ChatController();
@@ -98,6 +100,7 @@ const ChatListPage: React.FC = () => {
       )}
 
       <div className="chat-list-container">
+        <LogOutButton />
         <div className="chat-list">
           <h2>User Chat List</h2>
           <button className="create-chat-button" onClick={openCreateModal}>

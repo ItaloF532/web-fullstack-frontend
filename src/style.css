@@ -23,3 +23,9 @@ button {
   border-radius: 8px;
   background-color: #007bff;
 }
+
+.log-out-button {
+  top: 16px;
+  right: 16px;
+  position: absolute;
+}
