@@ -28,7 +28,7 @@ const AppRouter: React.FC = () => {
             path="/chat/:chatId"
             element={
               <PrivateRoute>
-                <ChatMessagePage userId="id" />
+                <ChatMessagePage />
               </PrivateRoute>
             }
           />

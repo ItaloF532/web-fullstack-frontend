@@ -25,19 +25,25 @@ const UserChatList: React.FC<UserChatListProps> = ({ chats, loading }) => {
       ) : (
         chats.map((chat, index) => {
           const partner = chat.users?.[1];
+          const selectedChat = {
+            id: chat.id,
+            partner,
+          };
+
           if (!partner) return <></>;
 
           return (
             <Link
               key={index}
               to={`/chat/${chat.id}`}
+              state={selectedChat}
               className="chat-list-item"
             >
               <div className="user-icon">
-                {partner.profileImage ? (
+                {partner?.profileImage ? (
                   <img
                     className="user-image"
-                    src={partner.profileImage}
+                    src={partner?.profileImage}
                     alt="User"
                   ></img>
                 ) : (

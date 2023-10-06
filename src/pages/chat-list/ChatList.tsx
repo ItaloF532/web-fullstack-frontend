@@ -6,7 +6,6 @@ import ChatController, {
   ListUserChatsDTO,
 } from "../../infra/controllers/ChatController";
 import { useAuth } from "../../context/auth";
-import LogOutIcon from "../../assets/LogOutIcon";
 import LogOutButton from "../../components/LogOutButton/LogOutButton";
 
 const ChatListPage: React.FC = () => {
