@@ -3,6 +3,7 @@ import UserIcon from "../../assets/UserIcon";
 import { ListUserChatsDTO } from "../../infra/controllers/ChatController";
 import "./style.css";
 import React from "react";
+import { useAuth } from "../../context/auth";
 
 export type UserChatListProps = {
   chats: ListUserChatsDTO;
@@ -10,6 +11,8 @@ export type UserChatListProps = {
 };
 
 const UserChatList: React.FC<UserChatListProps> = ({ chats, loading }) => {
+  const { userId } = useAuth();
+
   if (loading) {
     return <h3>Loading...</h3>;
   }
@@ -31,6 +34,7 @@ const UserChatList: React.FC<UserChatListProps> = ({ chats, loading }) => {
           };
 
           if (!partner) return <></>;
+          if (partner.id === userId) return <></>;
 
           return (
             <Link
