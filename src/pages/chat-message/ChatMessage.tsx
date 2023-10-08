@@ -22,7 +22,11 @@ export type ChatMessageDTO = {
   messages?: MessageDTO;
 };
 
-const ChatMessagePage: React.FC = () => {
+type ChatMessagePageProps = {
+  socket: WebSocket;
+};
+
+const ChatMessagePage: React.FC<ChatMessagePageProps> = ({ socket }) => {
   const { state } = useLocation();
   const [chat, setChat] = useState<ChatDTO | null>();
   const chatMessageController = new ChatMessageController();
@@ -57,8 +61,8 @@ const ChatMessagePage: React.FC = () => {
   return (
     <>
       <div className="chat-message-container">
-        <LogOutButton />
-        <BackButton path="/chat-list" />
+        <LogOutButton callback={() => socket.close()} />
+        <BackButton path="/chat-list" callback={() => socket.close()} />
         <div className="chat-message">
           <div className="partner-container">
             {state?.partner?.profileImage ? (
@@ -79,6 +83,7 @@ const ChatMessagePage: React.FC = () => {
           {state?.id && state?.partner.id && chat && (
             <MessageContainer
               chatId={state?.id}
+              socket={socket}
               partnerId={state?.partner?.id}
               messages={chat?.messages}
             />

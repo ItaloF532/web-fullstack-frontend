@@ -8,7 +8,11 @@ import ChatController, {
 import { useAuth } from "../../context/auth";
 import LogOutButton from "../../components/LogOutButton/LogOutButton";
 
-const ChatListPage: React.FC = () => {
+type ChatListPageProps = {
+  setSocket: (socket: WebSocket) => void;
+};
+
+const ChatListPage: React.FC<ChatListPageProps> = ({ setSocket }) => {
   const chatController = new ChatController();
   const { logOutExpired } = useAuth();
   const [chats, setChats] = useState<ListUserChatsDTO>([]);
@@ -105,7 +109,7 @@ const ChatListPage: React.FC = () => {
           <button className="create-chat-button" onClick={openCreateModal}>
             Create new chat
           </button>
-          <UserChatList chats={chats} loading={loading} />
+          <UserChatList chats={chats} loading={loading} setSocket={setSocket} />
         </div>
       </div>
     </>

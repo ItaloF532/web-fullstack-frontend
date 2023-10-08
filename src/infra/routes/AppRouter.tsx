@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import LoginPage from "../../pages/login/LoginPage";
 import PrivateRoute from "./PrivateRoute";
@@ -8,6 +8,7 @@ import { useAuth } from "../../context/auth";
 
 const AppRouter: React.FC = () => {
   const { signed } = useAuth();
+  const [socket, setSocket] = useState<WebSocket | undefined>();
 
   return (
     <BrowserRouter>
@@ -18,17 +19,17 @@ const AppRouter: React.FC = () => {
             path="/chat-list"
             element={
               <PrivateRoute>
-                <ChatListPage />
+                <ChatListPage setSocket={setSocket} />
               </PrivateRoute>
             }
           />
         )}
-        {signed && (
+        {signed && socket && (
           <Route
             path="/chat/:chatId"
             element={
               <PrivateRoute>
-                <ChatMessagePage />
+                <ChatMessagePage socket={socket} />
               </PrivateRoute>
             }
           />

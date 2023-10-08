@@ -4,14 +4,27 @@ import { ListUserChatsDTO } from "../../infra/controllers/ChatController";
 import "./style.css";
 import React from "react";
 import { useAuth } from "../../context/auth";
+import { WS_API_URL } from "../../constants";
+import Cookies from "js-cookie";
 
 export type UserChatListProps = {
   chats: ListUserChatsDTO;
   loading: boolean;
+  setSocket: (socket: WebSocket) => void;
 };
 
-const UserChatList: React.FC<UserChatListProps> = ({ chats, loading }) => {
+const UserChatList: React.FC<UserChatListProps> = ({
+  chats,
+  loading,
+  setSocket,
+}) => {
   const { userId } = useAuth();
+
+  const handleChatTap = async () => {
+    const token = Cookies.get("token");
+    const socket = new WebSocket(`${WS_API_URL}?token=${token}`);
+    setSocket(socket);
+  };
 
   if (loading) {
     return <h3>Loading...</h3>;
@@ -44,6 +57,7 @@ const UserChatList: React.FC<UserChatListProps> = ({ chats, loading }) => {
                 to={`/chat/${chat.id}`}
                 state={selectedChat}
                 className="chat-list-item"
+                onClick={handleChatTap}
               >
                 <div className="user-icon">
                   {partner?.profileImage ? (

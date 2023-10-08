@@ -1,13 +1,10 @@
-import React, { useEffect, useMemo, useState } from "react";
-import LogOutIcon from "../../assets/LogOutIcon";
+import React, { useEffect, useState } from "react";
 import { useAuth } from "../../context/auth";
-import { ChatDTO } from "../../infra/controllers/ChatMessageController";
-import Cookies from "js-cookie";
-import { WS_API_URL } from "../../constants";
 import SendButton from "../SendButton/SendButton";
 
 export type MessageContainerProps = {
   chatId: string;
+  socket: WebSocket;
   partnerId: string;
   messages: {
     userId: string;
@@ -18,126 +15,85 @@ export type MessageContainerProps = {
 
 const MessageContainer: React.FC<MessageContainerProps> = ({
   chatId,
+  socket,
   messages,
   partnerId,
 }) => {
-  const users = new Set();
-  const { userId: currentUserId } = useAuth();
-  const [chat, setChat] = useState<ChatDTO>();
-  const [newMessage, setNewMessage] = useState<{
-    userId: string;
-    message: string;
-    createdAt: Date;
-  }>();
+  const { userId } = useAuth();
   const [inputMessage, setInputMessage] = useState("");
-  const [socket, setSocket] = useState<WebSocket | null>();
-  const [state, updateState] = React.useState<any>();
-  const forceUpdate = React.useCallback(() => updateState({}), []);
+  const [chatMessages, setChatMessages] = useState<
+    {
+      userId: string;
+      message: string;
+      createdAt: Date;
+    }[]
+  >(messages);
 
   const handleSendMessage = () => {
-    if (socket && inputMessage && currentUserId && chat?.chatId) {
+    if (socket && inputMessage && userId && chatId) {
       const message = {
-        chatId: chat.chatId,
-        userId: currentUserId,
+        chatId: chatId,
+        userId,
         message: inputMessage,
         createdAt: new Date(),
       };
 
       socket.send(JSON.stringify(message));
-      setChat({
-        chatId: chat?.chatId,
-        messages: [...(chat?.messages ?? []), message],
-      });
       setInputMessage("");
     }
   };
 
-  const handleMessages = ({
-    message,
-    createdAt,
-    chatUserId,
-    messageChatId,
-  }: {
-    message: string;
-    createdAt: string;
-    chatUserId: string;
-    messageChatId: string;
-  }) => {
-    if (messageChatId !== chatId) return;
+  const handleOnMessage = (e: any) => {
+    const messageFromBuffer = e.data.toString();
+    const parsedMessage = JSON.parse(messageFromBuffer);
 
-    setNewMessage({
-      userId: chatUserId,
-      message,
-      createdAt: new Date(createdAt),
-    });
+    const { chatId, userId: chatUserId, message, createdAt } = parsedMessage;
+
+    if (!chatId || !chatUserId || !message || !createdAt) return;
+
+    const messageFromChatUsers =
+      chatUserId === partnerId || chatUserId === userId;
+
+    console.log(messageFromChatUsers);
+
+    if (!messageFromChatUsers) return;
+
+    console.log("handled");
+    setChatMessages((messages) => [
+      ...messages,
+      {
+        chatId: chatId,
+        userId: chatUserId,
+        message: message,
+        createdAt: new Date(createdAt),
+      },
+    ]);
   };
 
-  const handleWebSocketConnection = () => {
-    const token = Cookies.get("token");
-    const websocket = new window.WebSocket(`${WS_API_URL}?token=${token}`);
-
-    setSocket(websocket);
-
-    const userRef = { websocket };
-    users.add(userRef);
-
-    websocket.onopen = () => {
+  useEffect(() => {
+    socket.onopen = () => {
       console.log("opened ws connection");
     };
 
-    websocket.onclose = (e) => {
+    socket.onmessage = (data) => {
+      console.log("received message");
+      handleOnMessage(data);
+    };
+
+    socket.onclose = (e) => {
       console.log("close ws connection: ", e.code, e.reason);
     };
+  }, [socket]);
 
-    websocket.onmessage = (e) => {
-      const messageFromBuffer = e.data.toString();
-      const parsedMessage = JSON.parse(messageFromBuffer);
-
-      const hasChat = !!chat;
-
-      if (!!hasChat) return;
-
-      const { chatId, userId: chatUserId, message, createdAt } = parsedMessage;
-
-      if (!chatId || !chatUserId || !message || !createdAt) return;
-
-      const messageFromChatUsers =
-        currentUserId === partnerId || chatUserId === currentUserId;
-
-      if (!messageFromChatUsers) return;
-
-      console.log("handled");
-      handleMessages({ chatUserId, message, createdAt, messageChatId: chatId });
-    };
-
-    return () => {
-      websocket.close();
-    };
-  };
-
-  useEffect(() => {
-    setChat({
-      chatId,
-      messages,
-    });
-    handleWebSocketConnection();
-  }, []);
-
-  useEffect(() => {
-    if (newMessage) {
-      setChat({
-        chatId: chatId,
-        messages: [...(chat?.messages ?? []), newMessage!],
-      });
-    }
-  }, [newMessage]);
+  console.log("userId", userId);
+  console.log("partnerId", partnerId);
 
   return (
     <>
       <div className="message-container">
-        {chat?.messages?.length && (
+        {chatMessages?.length && (
           <>
-            {chat?.messages?.map((message, index) => {
+            {chatMessages?.map((message, index) => {
               const isPartnerMessage = message.userId === partnerId;
               return (
                 <div
