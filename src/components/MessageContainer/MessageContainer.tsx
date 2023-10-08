@@ -54,11 +54,8 @@ const MessageContainer: React.FC<MessageContainerProps> = ({
     const messageFromChatUsers =
       chatUserId === partnerId || chatUserId === userId;
 
-    console.log(messageFromChatUsers);
-
     if (!messageFromChatUsers) return;
 
-    console.log("handled");
     setChatMessages((messages) => [
       ...messages,
       {
@@ -84,9 +81,6 @@ const MessageContainer: React.FC<MessageContainerProps> = ({
       console.log("close ws connection: ", e.code, e.reason);
     };
   }, [socket]);
-
-  console.log("userId", userId);
-  console.log("partnerId", partnerId);
 
   return (
     <>
