@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useRef, useEffect, useState } from "react";
 import { useAuth } from "../../context/auth";
 import SendButton from "../SendButton/SendButton";
 
@@ -19,6 +19,7 @@ const MessageContainer: React.FC<MessageContainerProps> = ({
   messages,
   partnerId,
 }) => {
+  const containerMessageRef = useRef<HTMLDivElement>(null);
   const { userId } = useAuth();
   const [inputMessage, setInputMessage] = useState("");
   const [chatMessages, setChatMessages] = useState<
@@ -82,28 +83,31 @@ const MessageContainer: React.FC<MessageContainerProps> = ({
     };
   }, [socket]);
 
+  useEffect(() => {
+    containerMessageRef?.current?.scrollIntoView({
+      behavior: "smooth",
+      block: "end",
+    });
+  }, []);
+
   return (
     <>
       <div className="message-container">
-        {chatMessages?.length && (
-          <>
-            {chatMessages?.map((message, index) => {
-              const isPartnerMessage = message.userId === partnerId;
-              return (
-                <div
-                  key={index}
-                  className={
-                    isPartnerMessage
-                      ? "partner-message"
-                      : "current-user-message"
-                  }
-                >
-                  <p> {message.message} </p>
-                </div>
-              );
-            })}
-          </>
-        )}
+        {chatMessages?.length &&
+          chatMessages?.map((message, index) => {
+            const isPartnerMessage = message.userId === partnerId;
+            return (
+              <div
+                key={index}
+                className={
+                  isPartnerMessage ? "partner-message" : "current-user-message"
+                }
+              >
+                <p> {message.message} </p>
+              </div>
+            );
+          })}
+        <div ref={containerMessageRef} />
       </div>
 
       <div className="input-message-container">
