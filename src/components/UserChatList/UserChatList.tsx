@@ -28,13 +28,16 @@ const UserChatList: React.FC<UserChatListProps> = ({ chats, loading }) => {
       ) : (
         // eslint-disable-next-line array-callback-return
         chats.map((chat, index) => {
-          const partner = chat.users?.[1];
+          const partnerIndex = chat?.users?.findIndex(
+            (user) => user.id !== userId
+          );
+          const partner = chat.users?.[partnerIndex];
           const selectedChat = {
             id: chat.id,
             partner,
           };
 
-          if (!!partner && partner.id !== userId) {
+          if (!!partner) {
             return (
               <Link
                 key={index}

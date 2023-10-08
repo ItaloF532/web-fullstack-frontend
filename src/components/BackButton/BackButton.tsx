@@ -6,7 +6,6 @@ const BackButton: React.FC<{ path: string }> = ({ path }) => {
   const navigate = useNavigate();
 
   const onTap = () => {
-    console.log(path);
     navigate(path);
   };
 

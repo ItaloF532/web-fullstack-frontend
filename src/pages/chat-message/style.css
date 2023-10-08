@@ -61,6 +61,7 @@ h2 {
   margin: 12px 0px;
   display: flex;
   padding: 12px 0px;
+  overflow-y: auto;
   border-radius: 8px;
   flex-direction: column;
 }
