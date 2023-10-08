@@ -23,7 +23,7 @@ class ChatController {
   async listUserChats(): Promise<ListUserChatsDTO> {
     try {
       const res = await this.http.getAuth<{ chats: ListUserChatsDTO }>({
-        path: "/get-user-chats",
+        path: "/chats",
       });
 
       return res?.data?.chats ?? [];
@@ -45,7 +45,7 @@ class ChatController {
   async getChatPartners(): Promise<GetChatPartnersDTO> {
     try {
       const res = await this.http.getAuth<{ users: GetChatPartnersDTO }>({
-        path: "/get-users",
+        path: "/users",
       });
 
       return res?.data?.users ?? [];
@@ -67,7 +67,7 @@ class ChatController {
   async createChat(partnerId: string): Promise<void> {
     try {
       await this.http.posAutht({
-        path: "/create-chat",
+        path: "/chat",
         body: {
           partnerId,
         },
