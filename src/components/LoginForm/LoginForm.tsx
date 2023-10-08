@@ -3,17 +3,24 @@ import AuthController from "../../infra/controllers/AuthController";
 import "./style.css";
 import React, { useState } from "react";
 import { useAuth } from "../../context/auth";
+import JwtUtil from "../../utils/JwtUtil";
 
 const LoginForm: React.FC = () => {
   const authController = new AuthController();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const { signed, setSigned } = useAuth();
+  const { signed, setSigned, setUserId } = useAuth();
 
   const handleLogin = async () => {
     try {
-      await authController.signIn(username, password);
-      setSigned(true);
+      const token = await authController.signIn(username, password);
+      if (token) {
+        const decodedToken = JwtUtil.decode(token);
+        if (decodedToken?.user?.id) {
+          setSigned(true);
+          setUserId(decodedToken?.user?.id);
+        }
+      }
     } catch (error) {
       if (error instanceof Error) {
         if (error.toString() === "Error: Invalid credentials!") {

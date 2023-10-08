@@ -9,7 +9,10 @@ class AuthController {
     Cookies.set("token", token, { expires: 1 });
   }
 
-  async signIn(username: string, password: string): Promise<void> {
+  async signIn(
+    username: string,
+    password: string
+  ): Promise<string | undefined> {
     try {
       const res = await this.http.post<{ token: string }>({
         path: "/login",
@@ -19,7 +22,10 @@ class AuthController {
         },
       });
 
-      if (res?.data?.token) this.setTokenCookie(res.data.token);
+      if (res?.data?.token) {
+        this.setTokenCookie(res.data.token);
+        return res.data.token;
+      }
     } catch (err) {
       if (err instanceof AxiosError) {
         const data = err.response?.data as { message: string };

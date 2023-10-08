@@ -1,6 +1,8 @@
 import React, { createContext, useContext } from "react";
 
 interface AuthContextData {
+  userId?: string;
+  setUserId: (userId: string) => void;
   signed: boolean;
   expired: boolean;
   logOut: () => void;
@@ -14,6 +16,7 @@ const AuthContext = createContext<AuthContextData>({
   expired: false,
   logOut() {},
   logOutExpired() {},
+  setUserId(userId) {},
   setSigned(status) {},
   setExpired(status) {},
 });

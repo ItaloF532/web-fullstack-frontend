@@ -1,6 +1,5 @@
 import { AxiosError } from "axios";
 import HttpService from "../services/http";
-import Cookies from "js-cookie";
 
 export type ListUserChatsDTO = {
   id: string;
