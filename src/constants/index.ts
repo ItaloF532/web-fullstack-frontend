@@ -1,5 +1,5 @@
-const WS_API_URL = "ws://localhost:8000";
-const HTTP_API_URL = "https://localhost:8080";
-const SECRET_KEY = "aHR0cC1mb3ItYXM2NGEtc3VmZmljaWVuY3ktZXhhbQ==";
+const WS_API_URL = process.env.REACT_APP_WS_API_URL;
+const SECRET_KEY = process.env.REACT_APP_SECRET_KEY;
+const HTTP_API_URL = process.env.REACT_APP_HTTP_API_URL;
 
 export { WS_API_URL, HTTP_API_URL, SECRET_KEY };
