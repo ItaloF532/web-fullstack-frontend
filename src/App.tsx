@@ -3,8 +3,10 @@ import React, { PropsWithChildren, useEffect, useState } from "react";
 import AppRouter from "./infra/routes/AppRouter";
 import AuthContext from "./context/auth";
 import { redirect } from "react-router-dom";
+import UserController from "./infra/controllers/UserController";
 
 export const AuthProvider: React.FC<PropsWithChildren> = ({ children }) => {
+  const userController = new UserController();
   const [userId, setUserId] = useState<string | undefined>();
   const [expired, setExpired] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -21,16 +23,30 @@ export const AuthProvider: React.FC<PropsWithChildren> = ({ children }) => {
   };
 
   const handleUser = async () => {
-    if (isLoggedIn) {
-      // if (user?.id) setUserId(user.id);
-    } else {
-      setUserId(undefined);
+    try {
+      const user = await userController.getUser();
+      setIsLoggedIn(!!user);
+      if (user?.id) setUserId(user?.id);
+    } catch (error) {
+      if (error instanceof Error) {
+        if (error.toString() === "Error: Invalid token!") {
+          logOutExpired();
+          return;
+        }
+
+        if (error.toString() === "Error: Missing authentication token!") {
+          logOutExpired();
+          return;
+        }
+      }
+
+      throw error;
     }
   };
 
   useEffect(() => {
     handleUser();
-  }, [isLoggedIn]);
+  }, []);
 
   return (
     <AuthContext.Provider

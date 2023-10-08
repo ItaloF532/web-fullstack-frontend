@@ -26,6 +26,7 @@ const UserChatList: React.FC<UserChatListProps> = ({ chats, loading }) => {
           </div>
         </>
       ) : (
+        // eslint-disable-next-line array-callback-return
         chats.map((chat, index) => {
           const partner = chat.users?.[1];
           const selectedChat = {
@@ -33,30 +34,29 @@ const UserChatList: React.FC<UserChatListProps> = ({ chats, loading }) => {
             partner,
           };
 
-          if (!partner) return <></>;
-          if (partner.id === userId) return <></>;
-
-          return (
-            <Link
-              key={index}
-              to={`/chat/${chat.id}`}
-              state={selectedChat}
-              className="chat-list-item"
-            >
-              <div className="user-icon">
-                {partner?.profileImage ? (
-                  <img
-                    className="user-image"
-                    src={partner?.profileImage}
-                    alt="User"
-                  ></img>
-                ) : (
-                  <UserIcon />
-                )}
-              </div>
-              <p> {partner?.username} </p>
-            </Link>
-          );
+          if (!!partner && partner.id !== userId) {
+            return (
+              <Link
+                key={index}
+                to={`/chat/${chat.id}`}
+                state={selectedChat}
+                className="chat-list-item"
+              >
+                <div className="user-icon">
+                  {partner?.profileImage ? (
+                    <img
+                      className="user-image"
+                      src={partner?.profileImage}
+                      alt="User"
+                    ></img>
+                  ) : (
+                    <UserIcon />
+                  )}
+                </div>
+                <p> {partner?.username} </p>
+              </Link>
+            );
+          }
         })
       )}
     </div>

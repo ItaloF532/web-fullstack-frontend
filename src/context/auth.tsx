@@ -1,3 +1,4 @@
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import React, { createContext, useContext } from "react";
 
 interface AuthContextData {
@@ -16,9 +17,9 @@ const AuthContext = createContext<AuthContextData>({
   expired: false,
   logOut() {},
   logOutExpired() {},
-  setUserId(userId) {},
-  setSigned(status) {},
-  setExpired(status) {},
+  setUserId(_) {},
+  setSigned(_) {},
+  setExpired(_) {},
 });
 
 export function useAuth() {

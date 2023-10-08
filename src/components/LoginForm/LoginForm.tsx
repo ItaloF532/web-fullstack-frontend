@@ -4,6 +4,7 @@ import "./style.css";
 import React, { useState } from "react";
 import { useAuth } from "../../context/auth";
 import JwtUtil from "../../utils/JwtUtil";
+import { UserDTO } from "../../infra/controllers/UserController";
 
 const LoginForm: React.FC = () => {
   const authController = new AuthController();
@@ -15,7 +16,7 @@ const LoginForm: React.FC = () => {
     try {
       const token = await authController.signIn(username, password);
       if (token) {
-        const decodedToken = JwtUtil.decode(token);
+        const decodedToken = JwtUtil.decode<{ user: UserDTO }>(token);
         if (decodedToken?.user?.id) {
           setSigned(true);
           setUserId(decodedToken?.user?.id);

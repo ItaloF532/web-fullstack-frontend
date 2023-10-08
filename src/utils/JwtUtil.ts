@@ -1,14 +1,7 @@
 import jwt_decode from "jwt-decode";
 
-export type UserDTO = {
-  user: {
-    id: string;
-    username: string;
-  };
-};
-
 class JwtUtil {
-  static decode(token: string): UserDTO | undefined {
+  static decode<T>(token: string): T | undefined {
     return jwt_decode(token);
   }
 }
